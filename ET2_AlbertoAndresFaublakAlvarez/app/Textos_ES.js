@@ -1,4 +1,16 @@
 const textos_ES = {
+    // General UI labels
+    'text_titulo_app': 'Gestión ET2',
+    'text_titulo_menu': 'Menú',
+    'menu_alumnograduacion': 'Alumnado de graduación',
+    'menu_articulo': 'Artículos',
+    'menu_ubicacion': 'Ubicaciones',
+    'label_seleccioncolumnas': 'Columnas a mostrar',
+    'RECORDSET_VACIO': 'No hay datos disponibles',
+    'text_titulo_page_articulo': 'Gestión de artículos',
+    'text_titulo_page_ubicacion': 'Gestión de ubicaciones',
+    'text_titulo_page_alumnograduacion': 'Gestión de alumnado de graduación',
+
     // Articulo labels and placeholders
     'label_CodigoA': 'Código',
     'CodigoA_placeholder': 'Código generado automáticamente',
@@ -159,9 +171,6 @@ const textos_ES = {
     'text_contenido_titulo_form_alumnograduacion_DELETE': 'Eliminar alumno de graduación',
     'text_contenido_titulo_form_alumnograduacion_SEARCH': 'Buscar alumnado de graduación',
     'text_contenido_titulo_form_alumnograduacion_SHOWCURRENT': 'Detalles del alumno de graduación',
-
-    'text menu_alumnograduacion' : 'gestionar alumno graduacion',
-
     // Alumnograduacion table headers
     'login': 'Login',
     'nombre': 'Nombre',
@@ -194,5 +203,10 @@ const textos_ES = {
     'fotoacto_required_KO': 'Debes adjuntar una imagen JPG.',
     'fotoacto_max_size_KO': 'La imagen supera el tamaño máximo permitido.',
     'fotoacto_type_KO': 'La imagen debe ser de tipo JPG.',
-    'fotoacto_name_KO': 'El nombre de la imagen solo puede contener letras, números o puntos.'
-};
+    'fotoacto_name_KO': 'El nombre de la imagen solo puede contener letras, números o puntos.',
+
+    'text menu_alumnograduacion' : 'Gestionar alumno graduacion',
+    'text menu_articulo' : 'Gestión de Artículos',
+    'text menu_ubicacion' : 'Gestión de Ubicaciones'
+};  
+
