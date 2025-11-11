@@ -2,12 +2,29 @@ class articulo extends EntidadAbstracta {
     constructor(esTest) {
         super(esTest);
         this.nombreentidad = 'articulo';
-        this.columnasamostrar = ['CodigoA', 'AutoresA', 'TituloA', 'ISSN', 'EstadoA', 'FicheropdfA'];
+        this.columnasamostrar = [
+            'CodigoA',
+            'AutoresA',
+            'TituloA',
+            'TituloR',
+            'VolumenR',
+            'PagIniA',
+            'PagFinA',
+            'FechaPublicacionR',
+            'ISSN',
+            'EstadoA',
+            'FicheropdfA'
+        ];
         this.mostrarespecial = ['FicheropdfA'];
         this.attributes = [
             'CodigoA',
             'AutoresA',
             'TituloA',
+            'TituloR',
+            'VolumenR',
+            'PagIniA',
+            'PagFinA',
+            'FechaPublicacionR',
             'ISSN',
             'EstadoA',
             'FicheropdfA',
@@ -35,6 +52,31 @@ class articulo extends EntidadAbstracta {
                 <label id='label_TituloA' class='label_TituloA'>Titulo</label>
                 <input type='text' id='TituloA' name='TituloA' class='TituloA_placeholder'>
                 <span id='span_error_TituloA'><a id='error_TituloA'></a></span>
+                <br>
+
+                <label id='label_TituloR' class='label_TituloR'>Titulo revista</label>
+                <input type='text' id='TituloR' name='TituloR' class='TituloR_placeholder'>
+                <span id='span_error_TituloR'><a id='error_TituloR'></a></span>
+                <br>
+
+                <label id='label_VolumenR' class='label_VolumenR'>Volumen</label>
+                <input type='text' id='VolumenR' name='VolumenR' class='VolumenR_placeholder'>
+                <span id='span_error_VolumenR'><a id='error_VolumenR'></a></span>
+                <br>
+
+                <label id='label_PagIniA' class='label_PagIniA'>Página inicial</label>
+                <input type='text' id='PagIniA' name='PagIniA' class='PagIniA_placeholder'>
+                <span id='span_error_PagIniA'><a id='error_PagIniA'></a></span>
+                <br>
+
+                <label id='label_PagFinA' class='label_PagFinA'>Página final</label>
+                <input type='text' id='PagFinA' name='PagFinA' class='PagFinA_placeholder'>
+                <span id='span_error_PagFinA'><a id='error_PagFinA'></a></span>
+                <br>
+
+                <label id='label_FechaPublicacionR' class='label_FechaPublicacionR'>Fecha publicación</label>
+                <input type='text' id='FechaPublicacionR' name='FechaPublicacionR' class='FechaPublicacionR_placeholder'>
+                <span id='span_error_FechaPublicacionR'><a id='error_FechaPublicacionR'></a></span>
                 <br>
 
                 <label id='label_ISSN' class='label_ISSN'>ISSN</label>
@@ -221,6 +263,103 @@ class articulo extends EntidadAbstracta {
         return true;
     }
 
+    ADD_TituloR_validation() {
+        if (!(this.validations.min_size('TituloR', 5))) {
+            this.dom.mostrar_error_campo('TituloR', 'TituloR_min_size_KO');
+            return 'TituloR_min_size_KO';
+        }
+        if (!(this.validations.max_size('TituloR', 150))) {
+            this.dom.mostrar_error_campo('TituloR', 'TituloR_max_size_KO');
+            return 'TituloR_max_size_KO';
+        }
+        if (!(this.validations.format('TituloR', "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.:;\\-()'\"]+$"))) {
+            this.dom.mostrar_error_campo('TituloR', 'TituloR_format_KO');
+            return 'TituloR_format_KO';
+        }
+        this.dom.mostrar_exito_campo('TituloR');
+        return true;
+    }
+
+    ADD_VolumenR_validation() {
+        const value = this._getValue('VolumenR').trim();
+        if (value === '') {
+            this.dom.mostrar_error_campo('VolumenR', 'VolumenR_required_KO');
+            return 'VolumenR_required_KO';
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('VolumenR', 'VolumenR_format_KO');
+            return 'VolumenR_format_KO';
+        }
+        const numericValue = parseInt(value, 10);
+        if (Number.isNaN(numericValue) || numericValue < 1 || numericValue > 9999) {
+            this.dom.mostrar_error_campo('VolumenR', 'VolumenR_range_KO');
+            return 'VolumenR_range_KO';
+        }
+        this.dom.mostrar_exito_campo('VolumenR');
+        return true;
+    }
+
+    ADD_PagIniA_validation() {
+        const value = this._getValue('PagIniA').trim();
+        if (value === '') {
+            this.dom.mostrar_error_campo('PagIniA', 'PagIniA_required_KO');
+            return 'PagIniA_required_KO';
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('PagIniA', 'PagIniA_format_KO');
+            return 'PagIniA_format_KO';
+        }
+        const numericValue = parseInt(value, 10);
+        if (Number.isNaN(numericValue) || numericValue < 1 || numericValue > 9999) {
+            this.dom.mostrar_error_campo('PagIniA', 'PagIniA_range_KO');
+            return 'PagIniA_range_KO';
+        }
+        this.dom.mostrar_exito_campo('PagIniA');
+        return true;
+    }
+
+    ADD_PagFinA_validation() {
+        const value = this._getValue('PagFinA').trim();
+        if (value === '') {
+            this.dom.mostrar_error_campo('PagFinA', 'PagFinA_required_KO');
+            return 'PagFinA_required_KO';
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('PagFinA', 'PagFinA_format_KO');
+            return 'PagFinA_format_KO';
+        }
+        const numericValue = parseInt(value, 10);
+        if (Number.isNaN(numericValue) || numericValue < 1 || numericValue > 9999) {
+            this.dom.mostrar_error_campo('PagFinA', 'PagFinA_range_KO');
+            return 'PagFinA_range_KO';
+        }
+        const startValue = parseInt(this._getValue('PagIniA').trim() || '0', 10);
+        if (!Number.isNaN(startValue) && numericValue < startValue) {
+            this.dom.mostrar_error_campo('PagFinA', 'PagFinA_order_KO');
+            return 'PagFinA_order_KO';
+        }
+        this.dom.mostrar_exito_campo('PagFinA');
+        return true;
+    }
+
+    ADD_FechaPublicacionR_validation() {
+        const value = this._getValue('FechaPublicacionR').trim();
+        if (value === '') {
+            this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_required_KO');
+            return 'FechaPublicacionR_required_KO';
+        }
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_format_KO');
+            return 'FechaPublicacionR_format_KO';
+        }
+        if (!this._isValidDate(value)) {
+            this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_value_KO');
+            return 'FechaPublicacionR_value_KO';
+        }
+        this.dom.mostrar_exito_campo('FechaPublicacionR');
+        return true;
+    }
+
     ADD_ISSN_validation() {
         if (!(this.validations.format('ISSN', '^\\d{4}-\\d{3}[\\dXx]$'))) {
             this.dom.mostrar_error_campo('ISSN', 'ISSN_format_KO');
@@ -271,6 +410,26 @@ class articulo extends EntidadAbstracta {
 
     EDIT_TituloA_validation() {
         return this.ADD_TituloA_validation();
+    }
+
+    EDIT_TituloR_validation() {
+        return this.ADD_TituloR_validation();
+    }
+
+    EDIT_VolumenR_validation() {
+        return this.ADD_VolumenR_validation();
+    }
+
+    EDIT_PagIniA_validation() {
+        return this.ADD_PagIniA_validation();
+    }
+
+    EDIT_PagFinA_validation() {
+        return this.ADD_PagFinA_validation();
+    }
+
+    EDIT_FechaPublicacionR_validation() {
+        return this.ADD_FechaPublicacionR_validation();
     }
 
     EDIT_ISSN_validation() {
@@ -354,6 +513,90 @@ class articulo extends EntidadAbstracta {
         return true;
     }
 
+    SEARCH_TituloR_validation() {
+        if (this._isEmpty('TituloR')) {
+            this.dom.mostrar_exito_campo('TituloR');
+            return true;
+        }
+        if (!(this.validations.max_size('TituloR', 150))) {
+            this.dom.mostrar_error_campo('TituloR', 'TituloR_max_size_KO');
+            return 'TituloR_max_size_KO';
+        }
+        if (!(this.validations.format('TituloR', "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.:;\\-()'\"]*$"))) {
+            this.dom.mostrar_error_campo('TituloR', 'TituloR_format_KO');
+            return 'TituloR_format_KO';
+        }
+        this.dom.mostrar_exito_campo('TituloR');
+        return true;
+    }
+
+    SEARCH_VolumenR_validation() {
+        const value = this._getValue('VolumenR').trim();
+        if (value === '') {
+            this.dom.mostrar_exito_campo('VolumenR');
+            return true;
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('VolumenR', 'VolumenR_format_KO');
+            return 'VolumenR_format_KO';
+        }
+        this.dom.mostrar_exito_campo('VolumenR');
+        return true;
+    }
+
+    SEARCH_PagIniA_validation() {
+        const value = this._getValue('PagIniA').trim();
+        if (value === '') {
+            this.dom.mostrar_exito_campo('PagIniA');
+            return true;
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('PagIniA', 'PagIniA_format_KO');
+            return 'PagIniA_format_KO';
+        }
+        this.dom.mostrar_exito_campo('PagIniA');
+        return true;
+    }
+
+    SEARCH_PagFinA_validation() {
+        const value = this._getValue('PagFinA').trim();
+        if (value === '') {
+            this.dom.mostrar_exito_campo('PagFinA');
+            return true;
+        }
+        if (!/^\d{1,4}$/.test(value)) {
+            this.dom.mostrar_error_campo('PagFinA', 'PagFinA_format_KO');
+            return 'PagFinA_format_KO';
+        }
+        const startValue = this._getValue('PagIniA').trim();
+        if (startValue !== '' && /^\d{1,4}$/.test(startValue)) {
+            if (parseInt(value, 10) < parseInt(startValue, 10)) {
+                this.dom.mostrar_error_campo('PagFinA', 'PagFinA_order_KO');
+                return 'PagFinA_order_KO';
+            }
+        }
+        this.dom.mostrar_exito_campo('PagFinA');
+        return true;
+    }
+
+    SEARCH_FechaPublicacionR_validation() {
+        const value = this._getValue('FechaPublicacionR').trim();
+        if (value === '') {
+            this.dom.mostrar_exito_campo('FechaPublicacionR');
+            return true;
+        }
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_format_KO');
+            return 'FechaPublicacionR_format_KO';
+        }
+        if (!this._isValidDate(value)) {
+            this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_value_KO');
+            return 'FechaPublicacionR_value_KO';
+        }
+        this.dom.mostrar_exito_campo('FechaPublicacionR');
+        return true;
+    }
+
     SEARCH_ISSN_validation() {
         if (this._isEmpty('ISSN')) {
             this.dom.mostrar_exito_campo('ISSN');
@@ -385,6 +628,11 @@ class articulo extends EntidadAbstracta {
         let result = (
             this.ADD_AutoresA_validation() &
             this.ADD_TituloA_validation() &
+            this.ADD_TituloR_validation() &
+            this.ADD_VolumenR_validation() &
+            this.ADD_PagIniA_validation() &
+            this.ADD_PagFinA_validation() &
+            this.ADD_FechaPublicacionR_validation() &
             this.ADD_ISSN_validation() &
             this.ADD_EstadoA_validation() &
             this.ADD_nuevo_FicheropdfA_validation()
@@ -397,6 +645,11 @@ class articulo extends EntidadAbstracta {
             this.EDIT_CodigoA_validation() &
             this.EDIT_AutoresA_validation() &
             this.EDIT_TituloA_validation() &
+            this.EDIT_TituloR_validation() &
+            this.EDIT_VolumenR_validation() &
+            this.EDIT_PagIniA_validation() &
+            this.EDIT_PagFinA_validation() &
+            this.EDIT_FechaPublicacionR_validation() &
             this.EDIT_ISSN_validation() &
             this.EDIT_EstadoA_validation() &
             this.EDIT_nuevo_FicheropdfA_validation()
@@ -409,6 +662,11 @@ class articulo extends EntidadAbstracta {
             this.SEARCH_CodigoA_validation() &
             this.SEARCH_AutoresA_validation() &
             this.SEARCH_TituloA_validation() &
+            this.SEARCH_TituloR_validation() &
+            this.SEARCH_VolumenR_validation() &
+            this.SEARCH_PagIniA_validation() &
+            this.SEARCH_PagFinA_validation() &
+            this.SEARCH_FechaPublicacionR_validation() &
             this.SEARCH_ISSN_validation() &
             this.SEARCH_EstadoA_validation()
         );
@@ -428,5 +686,17 @@ class articulo extends EntidadAbstracta {
     _getValue(id) {
         const element = document.getElementById(id);
         return element ? element.value : '';
+    }
+
+    _isValidDate(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) {
+            return false;
+        }
+        const [year, month, day] = value.split('-').map((part) => parseInt(part, 10));
+        if (year < 1900 || year > 2100) {
+            return false;
+        }
+        return date.getUTCFullYear() === year && date.getUTCMonth() + 1 === month && date.getUTCDate() === day;
     }
 }

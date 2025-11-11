@@ -1,6 +1,11 @@
- `CodigoA` int AUTO_INCREMENT : clave generada por la BD (no se solicita en ADD)
+`CodigoA` int AUTO_INCREMENT : clave generada por la BD (no se solicita en ADD)
  `AutoresA` varchar(200) NOT NULL DEFAULT '' : letras con acentos, espacios y signos ,.- min 5 max 200
  `TituloA` varchar(150) NOT NULL DEFAULT '' : letras y dígitos con espacios y signos ,.:;-()'" min 5 max 150
+ `TituloR` varchar(150) NOT NULL DEFAULT '' : letras y dígitos con espacios y signos ,.:;-()'" min 5 max 150
+ `VolumenR` int NOT NULL : valor numérico entero entre 1 y 9999
+ `PagIniA` int NOT NULL : valor numérico entero entre 1 y 9999
+ `PagFinA` int NOT NULL : valor numérico entero entre 1 y 9999 (>= PagIniA)
+ `FechaPublicacionR` date NOT NULL : fecha válida en formato AAAA-MM-DD (rango 1900-2100)
  `ISSN` varchar(9) NOT NULL DEFAULT '' : formato exacto ####-###X (la última posición admite dígito o X)
  `EstadoA` enum('BORRADOR','EN_REVISION','PUBLICADO') NOT NULL : valor restringido a las tres opciones indicadas
  `FicheropdfA` varchar(60) NOT NULL DEFAULT '' : alfanumérico sin acentos ni espacios con _.- min 7 max 60. Solo pdf y tamaño de fichero menor de 4000000 bytes
