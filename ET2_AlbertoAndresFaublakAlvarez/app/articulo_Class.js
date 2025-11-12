@@ -160,6 +160,7 @@ class articulo extends EntidadAbstracta {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.EDIT();');
 
         this.dom.rellenarvaloresform(fila);
+        this._setFechaPublicacionRForDisplay(fila.FechaPublicacionR);
         this.dom.assign_property_value('link_FicheropdfA', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_FicheropdfA/' + fila.FicheropdfA);
         if (fila.FicheropdfA) {
             this.dom.show_element('link_FicheropdfA', 'inline-block');
@@ -182,6 +183,7 @@ class articulo extends EntidadAbstracta {
 
         this.dom.hide_element_form('nuevo_FicheropdfA');
         this.dom.rellenarvaloresform(fila);
+        this._setFechaPublicacionRForDisplay(fila.FechaPublicacionR);
         this.dom.assign_property_value('link_FicheropdfA', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_FicheropdfA/' + fila.FicheropdfA);
         if (fila.FicheropdfA) {
             this.dom.show_element('link_FicheropdfA', 'inline-block');
@@ -201,6 +203,7 @@ class articulo extends EntidadAbstracta {
 
         this.dom.hide_element_form('nuevo_FicheropdfA');
         this.dom.rellenarvaloresform(fila);
+        this._setFechaPublicacionRForDisplay(fila.FechaPublicacionR);
         this.dom.assign_property_value('link_FicheropdfA', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_FicheropdfA/' + fila.FicheropdfA);
         if (fila.FicheropdfA) {
             this.dom.show_element('link_FicheropdfA', 'inline-block');
@@ -343,18 +346,24 @@ class articulo extends EntidadAbstracta {
     }
 
     ADD_FechaPublicacionR_validation() {
-        const value = this._getValue('FechaPublicacionR').trim();
+        const field = document.getElementById('FechaPublicacionR');
+        const value = field ? field.value.trim() : '';
         if (value === '') {
             this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_required_KO');
             return 'FechaPublicacionR_required_KO';
         }
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        const normalized = this._normalizeFechaPublicacionR(value);
+        if (normalized === null) {
             this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_format_KO');
             return 'FechaPublicacionR_format_KO';
         }
-        if (!this._isValidDate(value)) {
+        if (!this._isValidDate(normalized)) {
             this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_value_KO');
             return 'FechaPublicacionR_value_KO';
+        }
+        if (field) {
+            field.dataset.originalFechaPublicacionR = value;
+            field.value = normalized;
         }
         this.dom.mostrar_exito_campo('FechaPublicacionR');
         return true;
@@ -580,18 +589,24 @@ class articulo extends EntidadAbstracta {
     }
 
     SEARCH_FechaPublicacionR_validation() {
-        const value = this._getValue('FechaPublicacionR').trim();
+        const field = document.getElementById('FechaPublicacionR');
+        const value = field ? field.value.trim() : '';
         if (value === '') {
             this.dom.mostrar_exito_campo('FechaPublicacionR');
             return true;
         }
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        const normalized = this._normalizeFechaPublicacionR(value);
+        if (normalized === null) {
             this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_format_KO');
             return 'FechaPublicacionR_format_KO';
         }
-        if (!this._isValidDate(value)) {
+        if (!this._isValidDate(normalized)) {
             this.dom.mostrar_error_campo('FechaPublicacionR', 'FechaPublicacionR_value_KO');
             return 'FechaPublicacionR_value_KO';
+        }
+        if (field) {
+            field.dataset.originalFechaPublicacionR = value;
+            field.value = normalized;
         }
         this.dom.mostrar_exito_campo('FechaPublicacionR');
         return true;
@@ -686,6 +701,53 @@ class articulo extends EntidadAbstracta {
     _getValue(id) {
         const element = document.getElementById(id);
         return element ? element.value : '';
+    }
+
+    _normalizeFechaPublicacionR(value, allowEmpty = false) {
+        const trimmed = value.trim();
+        if (trimmed === '') {
+            return allowEmpty ? '' : null;
+        }
+        if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+            return trimmed;
+        }
+        if (/^\d{2}\/\d{2}\/\d{4}$/.test(trimmed)) {
+            return this._convertDdMmYyyyToIso(trimmed);
+        }
+        return null;
+    }
+
+    _convertDdMmYyyyToIso(value) {
+        const [day, month, year] = value.split('/').map((part) => parseInt(part, 10));
+        if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) {
+            return null;
+        }
+        const paddedMonth = month.toString().padStart(2, '0');
+        const paddedDay = day.toString().padStart(2, '0');
+        return `${year}-${paddedMonth}-${paddedDay}`;
+    }
+
+    _setFechaPublicacionRForDisplay(isoValue) {
+        const formatted = this._formatIsoToDdMm(isoValue);
+        if (!formatted) {
+            return;
+        }
+        const field = document.getElementById('FechaPublicacionR');
+        if (field) {
+            field.value = formatted;
+            field.dataset.originalFechaPublicacionR = formatted;
+        }
+    }
+
+    _formatIsoToDdMm(value) {
+        if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            return '';
+        }
+        const [year, month, day] = value.split('-');
+        if (value === '0000-00-00') {
+            return '';
+        }
+        return `${day}/${month}/${year}`;
     }
 
     _isValidDate(value) {
