@@ -1,0 +1,29 @@
+alumnograduacion.login: letras y dígitos, longitud 4-15, comienza por letra.
+alumnograduacion.password: letras, dígitos, ._- , longitud 8-64.
+alumnograduacion.nombre: letras y espacios, longitud 2-25.
+alumnograduacion.apellidos: letras y espacios, longitud 2-35.
+alumnograduacion.titulacion: valores permitidos {GREI, GRIA, MEI, MIA, PCEO}.
+alumnograduacion.dni: DNI 8 dígitos + letra o NIE X/Y/Z + 7 dígitos + letra.
+alumnograduacion.telefono: exactamente 9 dígitos.
+alumnograduacion.direccion: alfanumérico con espacios , . / - º ª, longitud 5-100.
+alumnograduacion.email: formato correo estándar usuario@dominio.tld.
+alumnograduacion.fotoacto: nombre [a-zA-Z0-9_-]{5,100}.(jpg|jpeg|png), tamaño ≤ 2MB.
+
+articulo.codigo: entero positivo entre 1 y 99.999.999.
+articulo.autores: letras, dígitos, espacios, , . ; -, longitud 3-200.
+articulo.titulo_articulo: texto letras/dígitos/espacios/puntuación básica, longitud 3-100.
+articulo.titulo_revista: texto letras/dígitos/espacios/puntuación básica, longitud 3-100.
+articulo.issn: patrón ####-#### (último dígito puede ser X).
+articulo.volumen: hasta 4 dígitos.
+articulo.pagina_inicio/pagina_fin: hasta 4 dígitos, fin ≥ inicio.
+articulo.fecha_publicacion: fecha ISO yyyy-mm-dd, no futura.
+articulo.estado: valores permitidos {Enviado, Revision, Publicado}.
+articulo.ficheropdf: nombre [a-zA-Z0-9_-]{5,80}.pdf, tamaño ≤ 5MB.
+
+ubicacion.id_site: entero positivo entre 1 y 99.999.999.
+ubicacion.site_latitud: decimal con seis decimales, rango [-90, 90].
+ubicacion.site_longitud: decimal con seis decimales, rango [-180, 180].
+ubicacion.site_altitude: entero rango [-500, 9000].
+ubicacion.site_locality: letras/dígitos/espacios/- , longitud 2-40.
+ubicacion.site_provider_login: letras/dígitos/._-, longitud 3-30.
+ubicacion.site_*_photo: nombre [a-zA-Z0-9_-]{5,80}.(jpg|jpeg|png), tamaño ≤ 3MB.

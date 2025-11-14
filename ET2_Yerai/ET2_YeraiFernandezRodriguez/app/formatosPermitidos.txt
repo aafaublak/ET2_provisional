@@ -1,0 +1,34 @@
+articulo.CodigoA: INT[1..11], required
+articulo.AutoresA: VARCHAR[1..200], letras y puntuación básica, required
+articulo.TituloA: VARCHAR[1..100], required
+articulo.TituloR: VARCHAR[1..100], required
+articulo.ISSN: REGEX(^\d{4}-?\d{3}[\dxX]$), required
+articulo.VolumenR: NUMERIC[1..4], required
+articulo.PagIniA: NUMERIC[1..4], required
+articulo.PagFinA: NUMERIC[1..4], >= PagIniA, required
+articulo.FechaPublicacionR: DATE(YYYY-MM-DD), required
+articulo.EstadoA: ENUM('Enviado','Revision','Publicado'), required
+articulo.FicheropdfA: FILE(.pdf, <=2MB)
+
+ubicacion.id_site: INT[1..11], required
+ubicacion.site_latitud: DECIMAL(9,6) [-90,90], required
+ubicacion.site_longitud: DECIMAL(9,6) [-180,180], required
+ubicacion.site_altitude: INT[1..4], required
+ubicacion.site_locality: VARCHAR[1..40], required
+ubicacion.site_provider_login: VARCHAR[1..30], alfanumérico ._- permitido, required
+ubicacion.site_north_photo: FILE(.jpg,.jpeg,.png, <=2MB), required
+ubicacion.site_south_photo: FILE(.jpg,.jpeg,.png, <=2MB), required
+ubicacion.site_east_photo: FILE(.jpg,.jpeg,.png, <=2MB), required
+ubicacion.site_west_photo: FILE(.jpg,.jpeg,.png, <=2MB), required
+
+alumnograduacion.login: VARCHAR[4..15], solo letras, required
+alumnograduacion.password: VARCHAR[8..64], letras y dígitos, required
+alumnograduacion.nombre: VARCHAR[2..25], letras y espacios, required
+alumnograduacion.apellidos: VARCHAR[2..35], letras y espacios, required
+alumnograduacion.titulacion: ENUM('GREI','GRIA','MEI','MIA','PCEO'), required
+alumnograduacion.dni: REGEX(^\d{8}[A-Z]$|^[XYZ]\d{7}[A-Z]$), letra válida, required
+alumnograduacion.telefono: NUMERIC[9], required
+alumnograduacion.direccion: VARCHAR[1..150], letras, números y símbolos básicos, required
+alumnograduacion.email: EMAIL, required
+alumnograduacion.fotoacto: FILE(.jpg,.jpeg,.png, <=2MB), required
+

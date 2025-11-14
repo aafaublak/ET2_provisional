@@ -185,6 +185,7 @@ class Unit_Test {
             
         //}
 
+        console.log(`Unit test ${this.nombreentidad}`, output);
         return output;
     
     }

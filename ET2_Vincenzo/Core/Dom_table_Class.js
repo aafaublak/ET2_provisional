@@ -135,41 +135,50 @@ class dom_table {
 	 * @param {Object} parametros el objeto con la información de la fila
 	 * trae por cada atributo su id y su valor
 	 */
-	rellenarvaloresform(parametros){
+		rellenarvaloresform(parametros){
 		
-		//obtener campos del formulario
-        	let campos = document.forms['form_iu'].elements;
-        	//recorrer todos los campos
-        	for (let i=0;i<campos.length;i++) {
-				switch (campos[i].tagName){
-					case 'INPUT':
-							switch (campos[i].type){
-								case 'file':
-									break;
-								case 'submit':
-									break;
-								case 'checkbox':
-									this.rellenarvalorcheckbox(campos[i].name, parametros[campos[i].name]);
-									break;
-								case 'radio':
-									this.rellenarvalorradio(campos[i].name, parametros[campos[i].name]);
-									break;
-								default:
-									document.getElementById(campos[i].id).value = parametros[campos[i].id];
-									break;
-							}
-						
-						break;
-					case 'TEXTAREA':
-						document.getElementById(campos[i].id).innerHTML = parametros[campos[i].id];
-						break;
-					case 'SELECT':
-						this.rellenarvalorselect(campos[i].id, parametros[campos[i].id]);
-						break;
-					default:
-						break;
-				}
-        	}
+			const datos = parametros || {};
+			const obtenerValor = (clave) => datos[clave] ?? '';
+
+			//obtener campos del formulario
+        let campos = document.forms['form_iu'].elements;
+        //recorrer todos los campos
+        for (let i=0;i<campos.length;i++) {
+			switch (campos[i].tagName){
+				case 'INPUT':
+						switch (campos[i].type){
+							case 'text':
+							case 'number':
+							case 'email':
+							case 'date':
+							case 'hidden':
+								document.getElementById(campos[i].id).value = obtenerValor(campos[i].id);
+								break;
+							case 'file':
+								break;
+							case 'submit':
+								break;
+							case 'checkbox':
+								this.rellenarvalorcheckbox(campos[i].name, obtenerValor(campos[i].name));
+								break;
+							case 'radio':
+								this.rellenarvalorradio(campos[i].name, obtenerValor(campos[i].name));
+								break;
+							default:
+								break;
+						}
+					
+					break;
+				case 'TEXTAREA':
+					document.getElementById(campos[i].id).innerHTML = obtenerValor(campos[i].id);
+					break;
+				case 'SELECT':
+					this.rellenarvalorselect(campos[i].id, obtenerValor(campos[i].id));
+					break;
+				default:
+					break;
+			}
+        }
 	}
 
 	/**
@@ -309,8 +318,9 @@ class dom_table {
         if (indexvalor == -1){
             var mioption = document.createElement('option');
             mioption.value = valor;
+            mioption.innerHTML = valor;
             opciones[opciones.length] = mioption;
-            opciones.selectedIndex = opciones.length;
+            opciones.selectedIndex = opciones.length-1;
         }
 
     }
@@ -470,6 +480,3 @@ class dom_table {
 	
 
 }
-
-
-

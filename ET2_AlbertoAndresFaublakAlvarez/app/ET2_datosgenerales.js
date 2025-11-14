@@ -1,1 +1,0 @@
-let datosgenerales = ["Faublak Alvarez Alberto Andres", "ET2", 44]

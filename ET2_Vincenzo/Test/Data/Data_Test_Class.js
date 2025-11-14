@@ -299,6 +299,7 @@ class Data_Test {
 
 
         var salidapruebasnofile = this.data_test_data_nofile();
+        console.log(`Data test ${this.entidad.nombreentidad} (nofile)`, salidapruebasnofile);
          // se invoca la muestra del resultado de las pruebas
         let marcados =	{
 					pruebastatus: {value:'INCORRECTO', style:'background-color: red'}
@@ -316,6 +317,7 @@ class Data_Test {
 
         
         var salidapruebasfile = this.data_test_data_file();
+        console.log(`Data test ${this.entidad.nombreentidad} (file)`, salidapruebasfile);
        
         // se invoca la muestra del resultado de las pruebas
         

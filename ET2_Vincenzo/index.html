@@ -44,9 +44,9 @@
 	</nav>
 	<aside id='div-menu'>
 		<ol>
-		    <li class="opcionmenu"><span class = 'text menu_alumnograduacion'onclick="entidad = new alumnograduacion();">ALUMNOGRADUACION</span></li>
-			<li class="opcionmenu"><span class = 'text menu_articulo'onclick="entidad = new articulo();">ARTICULO</span></li>
-			<li class="opcionmenu"><span class = 'text menu_ubicacion'onclick="entidad = new ubicacion();">UBICACION</span></li>
+		    <li class="opcionmenu"><span class='text_menu_alumnograduacion' onclick="entidad = new alumnograduacion();"></span></li>
+			<li class="opcionmenu"><span class='text_menu_articulo' onclick="entidad = new articulo();"></span></li>
+			<li class="opcionmenu"><span class='text_menu_ubicacion' onclick="entidad = new ubicacion();"></span></li>
 	  	</ol>
 	</aside>
 	<section id="IU_manage_entity">
@@ -117,7 +117,7 @@
 	<div id="error_action_modal">
 		<span id="error_action_msg"></span>
 		<!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
-		<button onclick="entidad.dom.cerrarModalError()">X</button>
+		<button type="button" onclick="entidad.dom.cerrarModalError()">X</button>
 	</div>
 	
 	<script type="text/javascript">
